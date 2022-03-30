@@ -27,7 +27,6 @@ input {
 
 .dropdown-container {
   position: absolute; 
-  border: 1px solid black; 
   top: 60px; 
   margin: auto; 
   left: 0; 
@@ -45,6 +44,7 @@ input {
   background-color: white;
   padding: 5px;
   cursor: pointer;
+  border: 1px solid grey
 }
 
 .dropdown-item:nth-child(odd) {

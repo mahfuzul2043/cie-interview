@@ -8,7 +8,7 @@ export default function Autocomplete() {
     const [timeoutId, setTimeoutId] = useState(null);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [hideDiv, setHideDiv] = useState(false);
+    const [hideDropdown, setHideDropdown] = useState(true);
     const dispatch = useDispatch();
     const client = new HttpClient(process.env.REACT_APP_TMDB_API_URL, process.env.REACT_APP_TMDB_API_KEY);
 
@@ -28,7 +28,7 @@ export default function Autocomplete() {
                     setLoading(false);
                     console.log(e);
                 }
-            }, 1000);
+            }, 500);
             setTimeoutId(id);
         }
     }
@@ -50,14 +50,14 @@ export default function Autocomplete() {
 
     return (
         <div style={{ position: 'relative' }}>
-            <input onFocus={() => setHideDiv(false)} onChange={inputChanged} placeholder="ENTER ACTOR'S NAME..." />
+            <input onFocus={() => setHideDropdown(false)} onChange={inputChanged} placeholder="ENTER ACTOR'S NAME..." />
             <br />
             {loading && <div style={{ textAlign: 'center' }}>Loading...</div>}
-            {!hideDiv && !loading && (
+            {!hideDropdown && !loading && (
                 <div className='dropdown-container'>
                     {data?.results.length > 10 && data.results.slice(10).map(mapDropdownItems)}
                     {data?.results.length < 11 && data.results.length > 0 && data.results.map(mapDropdownItems)}
-                    <div onClick={() => setHideDiv(true)} className='collapse-dropdown'>^Collapse^</div>
+                    {data?.results.length > 0 && <div onClick={() => setHideDropdown(true)} className='collapse-dropdown'>^Collapse^</div>}
                 </div>
             )}
 
